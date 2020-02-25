@@ -26,7 +26,35 @@ def imprime_tabela(tab):
                 print(str(tab[i][j]) + " ", end="")
 
 def encontra_vazio(tab):
+
     for i in range(len(tab)):
+
         for j in range(len(tab)):
             if tab[i][j] == 0:
                 return (i, j) # linha, coluna
+
+def valido(tab, num, pos):
+    #Verifica linha
+    for i in range(len(tab[0])):
+        if tab[pos[0][i]] == num and pos[1] != i:
+            return False
+
+    #Verifica coluna
+    for j in range(len(tab)):
+        if tab[j][pos[1]] == num and pos[0] != j:
+            return False
+
+    #Verificar em que "caixa" estamos 
+    caixa_x = pos[1] // 3 
+    caixa_y = pos[0] // 3 
+
+    for i in range(caixa_y * 3, caixa_y * 3 + 3):
+
+        for j in range(caixa_x * 3, caixa_x * 3 + 3):
+            if tab[i][j] == num and (i, j) != pos:
+                return False
+
+    return True
+
+def resolve(tab):
+    
