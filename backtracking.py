@@ -33,10 +33,12 @@ def encontra_vazio(tab):
             if tab[i][j] == 0:
                 return (i, j) # linha, coluna
 
+    return None
+
 def valido(tab, num, pos):
     #Verifica linha
     for i in range(len(tab[0])):
-        if tab[pos[0][i]] == num and pos[1] != i:
+        if tab[pos[0]][i] == num and pos[1] != i:
             return False
 
     #Verifica coluna
@@ -58,3 +60,25 @@ def valido(tab, num, pos):
 
 def resolve(tab):
     
+    encontra = encontra_vazio(tab)
+
+    if not encontra:
+        return True
+    else:
+        linha, coluna = encontra
+
+    for i in range(1, 10):
+        if valido(tab, i, (linha, coluna)):
+            tab[linha][coluna] = i
+
+            if resolve(tab):
+                return True
+
+            tab[linha][coluna] = 0
+
+    return False
+
+imprime_tabela(tabela)
+resolve(tabela)
+print(" ")
+imprime_tabela(tabela)
